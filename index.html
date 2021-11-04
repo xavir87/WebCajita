@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Tabla de usuarios con AJAX</title>
+	<script src="https://cdn.kushkipagos.com/kushki-checkout.js"></script>
+</head>
+<body>
+	<script type="text/javascript">
+var kushki = new Kushki({
+  merchantId: '20df78524b044b259e6517d92d380444', 
+  inTestEnvironment: true,
+  regional:false
+});
+
+var callback = function(response) {
+  if(!response.code){
+    console.log(response);
+  } else {
+    console.error('Error: ',response.error, 'Code: ', response.code, 'Message: ',response.message);
+  }
+}
+
+kushki.requestToken({
+  amount: '49.99',
+  months: '12', // Required only for deferred transactions in Chile
+  currency: "USD",
+  card: {
+    name: "Juan Guerra",
+    number: "4544980425511225",
+    cvc: "345",
+    expiryMonth: "12",
+    expiryYear: "28"
+},
+}, callback); // Also you can set the function directly
+
+	</script>	
+	<div class="contenedor">			
+		<form action="invocacion.php" method="post" id="payment-form">
+			<input placeholder="Card Number" type="text" name="number">
+			<input placeholder="Full Name" type="text" name="name">  
+			<input placeholder="MM" type="text" name="expiry_month">
+			<input placeholder="YY" type="text" name="expiry_uear">
+			<input placeholder="CVC" type="text" name="cvc">
+			<button id="submit">Pay $49.99</button>
+		  </form>
+	</div>
+	<div>
+		<script src="https://cdn.kushkipagos.com/kushki-checkout.js"></script>	
+	</div>
+
+</body>
+</html>
